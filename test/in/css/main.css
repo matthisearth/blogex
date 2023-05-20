@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+    @apply text-blue-700;
+}
+
+ul {
+    @apply list-outside list-disc mb-3 pl-5;
+}
+
+ol {
+    @apply list-outside list-decimal mb-3 pl-5;
+}
+
+h1 {
+    @apply text-2xl;
+}
+
+h2 {
+    @apply text-xl mb-3 mt-5;
+}
+
+body {
+    background: rgb(255 170 0);
+    background: linear-gradient(90deg, rgb(255 65 0) 0%, rgb(255 170 0) 50%, rgb(255 65 0) 100%);
+}

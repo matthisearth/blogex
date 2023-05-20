@@ -1,0 +1,110 @@
+$start$doc$
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <meta name="author" content="$here$siteauthor$">
+        <title>$here$headtitle$</title>
+        $here$css$
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/vs.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    </head>
+    <body class="flex flex-col h-screen font-serif">
+        <header class="w-full max-w-screen-sm mx-auto object-contain sm:px-3">
+            <div class="bg-white border border-white opacity-80 p-5 sm:rounded-b-lg mb-3">
+                <div class="text-2xl">$here$sitetitle$</div>
+                <div>$here$sitesubtitle$</div>
+                <div class="flex flex-row flex-wrap">
+                    $here$menuitems$
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow w-full max-w-screen-md mx-auto object-contain md:px-3">
+            <div class="bg-white border border-white opacity-80 p-5 md:rounded-lg mb-3">
+            <h1 class="mb-3">$here$pagetitle$</h1>
+                $here$pagedate$
+                $here$pagecontent$
+            </div>
+        </main>
+        <footer class="w-full max-w-screen-sm mx-auto object-contain sm:px-3">
+            <div class="bg-white border border-white opacity-80 p-5 sm:rounded-t-lg">
+                <span>$here$sitefooter$</span>
+            </div>
+        </footer>
+    </body>
+</html>
+$end$doc$
+
+$start$menuitem$
+<a href="$here$link$" class="bg-blue-700 py-1 px-2 rounded-md mr-2 mt-2 text-white">$here$content$</a>
+$end$menuitem$
+
+$start$block$
+<div class="mb-3 leading-normal">$here$content$</div>
+$end$block$
+
+$start$date$
+<div class="italic mb-4">$here$date$</div>
+$end$date$
+
+$start$inlinecode$
+<code class="hljs whitespace-nowrap language-$here$lang$">$here$code$</code>
+$end$inlinecode$
+
+$start$displaycode$
+<pre><code class="hljs my-3 language-$here$lang$">$here$code$</code></pre>
+$end$displaycode$
+
+$start$eqinline$
+<span class="eqinline">$here$eq$</span>
+$end$eqinline$
+
+$start$eqdisplay$
+<div class="eqdisplay center">$here$eq$</div>
+$end$eqdisplay$
+
+$start$errorstring$
+<span class="text-red-600">&ndash; Error &ndash;</span>
+$end$errorstring$
+
+$start$postlist$
+<ul>$here$items$</ul>
+$end$postlist$
+
+$start$postlistitem$
+<li><a href="$here$relpath$">$here$date$ &ndash; $here$content$</a></li>
+$end$postlistitem$
+
+$start$postroll$
+$here$postrollitems$
+<div class="flex flex-row justify-center">$here$backwardlink$ $here$forwardlink$</div>
+$end$postroll$
+
+$start$postrollfwd$
+<a class="text-5xl px-2 pb-2 pt-0 mx-1 mb-3" href="$here$fwdlink$">»</a>
+$end$postrollfwd$
+
+$start$postrollbwd$
+<a class="text-5xl px-2 pb-2 pt-0 mx-1 mb-3" href="$here$bwdlink$">«</a>
+$end$postrollbwd$
+
+$start$postrollitem$
+<h2 class="mb-1"><a href="$here$relpath$">$here$content$</a></h2>
+<div class="italic mb-2">From $here$date$</div>
+<div>$here$abstract$</div>
+$end$postrollitem$
+
+$start$tailwindconfig$
+{
+    "theme": {
+        "fontFamily": {
+            "serif": ["Libre\\ Baskerville", "ui-serif", "serif"],
+            "mono" : ["Roboto\\ Mono", "ui-monospace", "monospace"]
+        }
+    }
+}
+$end$tailwindconfig$

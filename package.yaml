@@ -1,0 +1,67 @@
+name: blogex
+version: 0.1.0.0
+license: MIT
+author: "Matthis Lehmkuehler"
+maintainer: "contact@matthis.earth"
+copyright: "2023 Matthis Lehmkuehler"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis: Short description of your package
+# category: Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+
+description: See README.md
+
+dependencies:
+- base >= 4.7 && < 5
+- directory >= 1.3
+- process >= 1.6
+- SHA >= 1.6
+- utf8-string >= 1.0
+- containers >= 0.6
+- parsec >= 3.1
+- network >= 3.1
+- time >= 1.9
+- bytestring >= 0.10
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  blogex:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - blogex
+
+tests:
+  blogex-test:
+    main: MainTest.hs
+    source-dirs: test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - blogex
