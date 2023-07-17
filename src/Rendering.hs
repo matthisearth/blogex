@@ -347,7 +347,7 @@ inlineCodeProc :: TexProcess
 inlineCodeProc [HereString lang, HereString s] c templ = do
     res <- getResult (rwMvar c) ["highlight", lang, trimString s]
     return $ case res of
-        Right t -> renderWithTemplate templ "inlinwcode" values
+        Right t -> renderWithTemplate templ "inlinecode" values
              where values = M.fromList [("lang", lang), ("code", removeBackEscape t)]
         Left _ -> errorString templ
 inlineCodeProc _ _ _ = error "Rendering: Invalid call."
