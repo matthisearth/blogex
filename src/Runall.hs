@@ -16,8 +16,8 @@ import TemplateParser
 
 -- Processing function
 
-mainProcessing :: FilePath -> FilePath -> FilePath -> IO ()
-mainProcessing jsPath inDir outDir = withServer jsPath $ \m -> do
+mainProcessing :: FilePath -> FilePath -> IO ()
+mainProcessing inDir outDir = do
     (fs, ds) <- contentsRecursive inDir
     let
         outDs = (outDir ++) <$> ds
@@ -46,7 +46,6 @@ mainProcessing jsPath inDir outDir = withServer jsPath $ \m -> do
         configTexDataNoCss = M.unions configTexDataList
         configTexData = M.insert "htmlcss" cssContext configTexDataNoCss
     let c = Context {
-        rwMvar = m,
         thisPageData = M.empty,
         generalData = configTexData,
         allPageData = snd <$> allDocs }
@@ -69,10 +68,10 @@ processTemplateFile inDir = do
         Left e -> putStrLn (show e) >> return emptyTemplate
 
 processCssFile :: Context -> Template -> FilePath -> (FilePath, FilePath) -> IO ()
-processCssFile c templ outDir (inCssPath, outCssPath) = do
+processCssFile _ templ outDir (inCssPath, outCssPath) = do
     let postConfig = getTemplateValue "tailwindconfig" templ
     inCss <- readFile inCssPath
-    outCss <- getResult (rwMvar c) ["postcss", outDir, inCss, postConfig]
+    outCss <- getResult ["postcss", outDir, inCss, postConfig]
     case outCss of
         Right s -> writeFile outCssPath s >> return ()
         -- Error printing consistent with parsec error printing

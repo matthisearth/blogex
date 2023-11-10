@@ -8,10 +8,10 @@ main :: IO ()
 main = do
     as <- E.getArgs
     case as of
-        [jsPath, inDir, outDir] -> do
+        [inDir, outDir] -> do
             let
                 inDirStrip = (L.dropWhileEnd (== '/') inDir) ++ "/"
                 outDirStrip = (L.dropWhileEnd (== '/') outDir) ++ "/"
-            mainProcessing jsPath inDirStrip outDirStrip
-        _ -> putStrLn "usage: blogex [jspath] [indir] [outdir]"
+            mainProcessing inDirStrip outDirStrip
+        _ -> putStrLn "usage: blogex [indir] [outdir]"
 

@@ -68,7 +68,6 @@ data IsDocOrString = IsDoc
 -- Context
 
 data Context = Context {
-    rwMvar :: RwMvar,
     thisPageData :: PageData,
     generalData :: PageData,
     allPageData :: [PageData] }
@@ -83,7 +82,7 @@ hasDocClass f pd = case M.lookup "documentclass" pd of
     _ -> False
 
 changeThisPage :: Context -> PageData -> Context
-changeThisPage (Context m _ g a) this = Context m this g a
+changeThisPage (Context _ g a) this = Context this g a
 
 -- Processing things
 
@@ -344,8 +343,8 @@ removeBackEscape (x:xs) = x : removeBackEscape xs
 removeBackEscape _ = ""
 
 inlineCodeProc :: TexProcess
-inlineCodeProc [HereString lang, HereString s] c templ = do
-    res <- getResult (rwMvar c) ["highlight", lang, trimString s]
+inlineCodeProc [HereString lang, HereString s] _ templ = do
+    res <- getResult ["highlight", lang, trimString s]
     return $ case res of
         Right t -> renderWithTemplate templ "inlinecode" values
              where values = M.fromList [("lang", lang), ("code", removeBackEscape t)]
@@ -353,8 +352,8 @@ inlineCodeProc [HereString lang, HereString s] c templ = do
 inlineCodeProc _ _ _ = error "Rendering: Invalid call."
 
 displayCodeProc :: TexProcess
-displayCodeProc [HereString s, HereString lang] c templ = do
-    res <- getResult (rwMvar c) ["highlight", lang, trimString s]
+displayCodeProc [HereString s, HereString lang] _ templ = do
+    res <- getResult ["highlight", lang, trimString s]
     return $ case res of
         Right t -> renderWithTemplate templ "displaycode" values
              where values = M.fromList [("lang", lang), ("code", removeBackEscape t)]
@@ -362,16 +361,16 @@ displayCodeProc [HereString s, HereString lang] c templ = do
 displayCodeProc _ _ _ = error "Rendering: Invalid call."
 
 eqinlineProc :: TexProcess
-eqinlineProc [HereString s] c templ = do
-    res <- getResult (rwMvar c) ["eqinline", trimString s]
+eqinlineProc [HereString s] _ templ = do
+    res <- getResult ["eqinline", trimString s]
     return $ case res of
         Right eq -> renderWithTemplate templ "eqinline" $ M.fromList [("eq", eq)]
         Left _ -> errorString templ
 eqinlineProc _ _ _ = error "Rendering: Invalid call."
 
 eqdisplayProc :: TexProcess
-eqdisplayProc [HereString s] c templ = do
-    res <- getResult (rwMvar c) ["eqdisplay", trimString s]
+eqdisplayProc [HereString s] _ templ = do
+    res <- getResult ["eqdisplay", trimString s]
     return $ case res of
         Right eq -> renderWithTemplate templ "eqdisplay" $ M.fromList [("eq", eq)]
         Left _ -> errorString templ
